@@ -17,4 +17,5 @@ public class SismoneyExceptionHandler extends ResponseEntityExceptionHandler{
 		return handleExceptionInternal(ex, "Mensagem inválida", headers, HttpStatus.BAD_REQUEST, request);
 	}
 
+	//Ta faltando algumas partes
 }
