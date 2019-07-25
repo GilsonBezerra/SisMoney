@@ -42,4 +42,5 @@ public class SismoneyExceptionHandler extends ResponseEntityExceptionHandler{
 //		
 //	}
 
+	//Ta faltando algumas partes
 }
