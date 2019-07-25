@@ -28,6 +28,8 @@ public class SismoneyExceptionHandler extends ResponseEntityExceptionHandler{
 		return handleExceptionInternal(ex, new ApiErro(mensagemUsuario, mensagemDesenvolvedor), headers, HttpStatus.BAD_REQUEST, request);
 	}
 	
+	//Atualização
+	
 //	@Override
 //	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request){
 //	
