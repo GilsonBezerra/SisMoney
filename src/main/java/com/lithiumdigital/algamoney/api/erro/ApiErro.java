@@ -1,5 +1,6 @@
 package com.lithiumdigital.algamoney.api.erro;
 
+//Classe para servir as mensagens de erro
 public class ApiErro {
 	
 	private String mensagemUsuario;
