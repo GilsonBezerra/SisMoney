@@ -6,22 +6,22 @@ import javax.validation.constraints.NotNull;
 @Embeddable
 public class Endereco {
 	
-	@NotNull
+	
 	private String logradouro;
-	@NotNull
 	private String numero; 
-	@NotNull
 	private String complemento;
-	@NotNull
 	private String bairro;
-	@NotNull
 	private String cep;
-	@NotNull
 	private String cidade;
-	@NotNull
 	private String estado;
+
 	
-	
+	@Override
+	public String toString() {
+		return "Endereco [logradouro=" + logradouro + ", numero=" + numero + ", complemento=" + complemento
+				+ ", bairro=" + bairro + ", cep=" + cep + ", cidade=" + cidade + ", estado=" + estado + "]";
+	}
+
 	public String getLogradouro() {
 		return logradouro;
 	}

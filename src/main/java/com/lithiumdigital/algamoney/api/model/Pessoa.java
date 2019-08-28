@@ -21,18 +21,9 @@ public class Pessoa {
 	
 	@Embedded
 	private Endereco endereco;
-	public Endereco getEndereco() {
-		return endereco;
-	}
 	
-	public Pessoa() {}
-	
-	public Pessoa (Long codigo, String nome, Endereco endereco) {
-		this.codigo = codigo;
-		this.nome = nome;
-		this.endereco = endereco;
-		
-		}
+	@NotNull
+	private Boolean ativo;
 	
 
 	public Long getCodigo() {
@@ -50,6 +41,25 @@ public class Pessoa {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
+	
+	
+	
 
 
 	

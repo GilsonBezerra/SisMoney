@@ -64,12 +64,15 @@ public class PessoaResource {
 	public void remover(@PathVariable Long codigo) {
 
 		pessoaRepository.delete(codigo);
-
+		
 	}
 
 	@PutMapping("/{codigo}")
 	public ResponseEntity<Pessoa> atualizar(@PathVariable Long codigo, @Valid @RequestBody Pessoa pessoa) {
 		Pessoa pessoaSalva = pessoaRepository.findOne(codigo);
+		
+		System.out.println(pessoaSalva.getEndereco().toString());
+		
 		BeanUtils.copyProperties(pessoa, pessoaSalva, "codigo");
 		pessoaRepository.save(pessoaSalva);
 		return ResponseEntity.ok(pessoaSalva);
