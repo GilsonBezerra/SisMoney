@@ -18,8 +18,8 @@ public class Endereco {
 	
 	@Override
 	public String toString() {
-		return "Endereco [logradouro=" + logradouro + ", numero=" + numero + ", complemento=" + complemento
-				+ ", bairro=" + bairro + ", cep=" + cep + ", cidade=" + cidade + ", estado=" + estado + "]";
+		return "logradouro = " + logradouro + ", numero = " + numero + ", complemento = " + complemento
+				+ ", bairro = " + bairro + ", cep = " + cep + ", cidade = " + cidade + ", estado = " + estado;
 	}
 
 	public String getLogradouro() {
