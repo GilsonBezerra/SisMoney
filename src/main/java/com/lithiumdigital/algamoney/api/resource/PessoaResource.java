@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,13 +22,17 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lithiumdigital.algamoney.api.model.Pessoa;
 import com.lithiumdigital.algamoney.api.repository.PessoaRepository;
+import com.lithiumdigital.algamoney.api.service.PessoaService;
 
 @RestController
 @RequestMapping("/pessoa")
 public class PessoaResource {
 
 	@Autowired
-	PessoaRepository pessoaRepository;
+	private PessoaRepository pessoaRepository;
+	
+	@Autowired
+	private PessoaService pessoaService;
 
 	@GetMapping
 	public List<Pessoa> listar() {
@@ -69,12 +72,7 @@ public class PessoaResource {
 
 	@PutMapping("/{codigo}")
 	public ResponseEntity<Pessoa> atualizar(@PathVariable Long codigo, @Valid @RequestBody Pessoa pessoa) {
-		Pessoa pessoaSalva = pessoaRepository.findOne(codigo);
-		
-		System.out.println(pessoaSalva.getEndereco().toString());
-		
-		BeanUtils.copyProperties(pessoa, pessoaSalva, "codigo");
-		pessoaRepository.save(pessoaSalva);
+		Pessoa pessoaSalva = pessoaService.atualizar(codigo, pessoa);
 		return ResponseEntity.ok(pessoaSalva);
 
 	}

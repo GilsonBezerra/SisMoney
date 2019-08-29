@@ -15,12 +15,12 @@ public class Endereco {
 	private String cidade;
 	private String estado;
 
-	
+	//SÓ PARA TESTES
 	@Override
 	public String toString() {
 		return "logradouro = " + logradouro + ", numero = " + numero + ", complemento = " + complemento
 				+ ", bairro = " + bairro + ", cep = " + cep + ", cidade = " + cidade + ", estado = " + estado;
-	}
+	}//FIM DO TESTE
 
 	public String getLogradouro() {
 		return logradouro;
