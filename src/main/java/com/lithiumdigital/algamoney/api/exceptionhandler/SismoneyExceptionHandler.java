@@ -11,6 +11,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
@@ -36,17 +38,22 @@ public class SismoneyExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 
 	@Override
-	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, 
-			WebRequest request) {
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
 
-		List<ApiErro> erros = criarListaDeErros();
+		List<ApiErro> erros = criarListaDeErros(ex.getBindingResult());
 		return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
 	}
-	
-	
 
-	private List<ApiErro> criarListaDeErros() {
+	//LISTA DE ERROS NOS CAMPOS DE CADASTRO
+	private List<ApiErro> criarListaDeErros(BindingResult bindingResult) {
 		List<ApiErro> erros = new ArrayList<>();
+		
+		for(FieldError fieldError : bindingResult.getFieldErrors()) {
+			String mensagemUsuario = messageSource.getMessage(fieldError, LocaleContextHolder.getLocale());
+			String mensagemDesenvolvedor = fieldError.toString();
+			erros.add(new ApiErro(mensagemUsuario, mensagemDesenvolvedor));
+		}
 
 		return erros;
 
