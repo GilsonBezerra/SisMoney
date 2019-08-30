@@ -1,7 +1,6 @@
 package com.lithiumdigital.algamoney.api.model;
 
 import javax.persistence.Embeddable;
-import javax.validation.constraints.NotNull;
 
 @Embeddable
 public class Endereco {

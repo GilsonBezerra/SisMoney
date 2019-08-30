@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.lithiumdigital.algamoney.api.erro.ApiErro;
 import com.lithiumdigital.algamoney.api.model.Categoria;
 import com.lithiumdigital.algamoney.api.repository.CategoriaRepository;
 import com.lithiumdigital.algamoney.api.service.CategoriaService;
