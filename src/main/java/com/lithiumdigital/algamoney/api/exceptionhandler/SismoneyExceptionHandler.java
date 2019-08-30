@@ -33,7 +33,9 @@ public class SismoneyExceptionHandler extends ResponseEntityExceptionHandler {
 
 		String mensagemUsuario = messageSource.getMessage("mensagem.invalida", null, LocaleContextHolder.getLocale());
 		String mensagemDesenvolvedor = ex.getCause().toString();
+		
 		List<ApiErro> erros = Arrays.asList(new ApiErro(mensagemUsuario, mensagemDesenvolvedor));
+		
 		return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
 	}
 
