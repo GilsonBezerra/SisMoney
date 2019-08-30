@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.lithiumdigital.algamoney.api.erro.ApiErro;
 import com.lithiumdigital.algamoney.api.model.Categoria;
-import com.lithiumdigital.algamoney.api.model.Pessoa;
 import com.lithiumdigital.algamoney.api.repository.CategoriaRepository;
 import com.lithiumdigital.algamoney.api.service.CategoriaService;
 
@@ -29,13 +29,16 @@ import com.lithiumdigital.algamoney.api.service.CategoriaService;
 @RequestMapping("/categorias")
 public class CategoriaResource {
 
+	// INJEÇÃO DE CLASSES
 	@Autowired
 	private CategoriaRepository categoriaRepository;
-	
+
 	@Autowired
 	private CategoriaService categoriaService;
-
 	
+	
+
+	// LISTAR TODAS AS CATEGORIAS
 	@GetMapping
 	public List<Categoria> listar() {
 
@@ -43,6 +46,7 @@ public class CategoriaResource {
 
 	}
 
+	// SALVAR NOVA CATEGORIA
 	@PostMapping
 	public ResponseEntity<Categoria> criar(@Valid @RequestBody Categoria categoria, HttpServletResponse response) {
 		Categoria categoriaSalva = categoriaRepository.save(categoria);
@@ -57,20 +61,25 @@ public class CategoriaResource {
 
 	}
 
+	//BUSCAR UMA CATEGORIA PELO CODIGO
 	@GetMapping("/{codigo}")
 	public ResponseEntity<Categoria> buscarPeloCodigo(@PathVariable Long codigo) {
+		
 		Categoria categoria = categoriaRepository.findOne(codigo);
+		
 
 		return categoria != null ? ResponseEntity.ok(categoria) : ResponseEntity.notFound().build();
 
 	}
 
+	//DELETAR UMA CATEGORIA
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long codigo) {
 		categoriaRepository.delete(codigo);
 	}
-	
+
+	//ATUALIZAR UMA CATEGORIA COMPLETA
 	@PutMapping("/{codigo}")
 	public ResponseEntity<Categoria> atualizar(@PathVariable Long codigo, @Valid @RequestBody Categoria categoria) {
 		Categoria categoriaSalva = categoriaService.atualizar(codigo, categoria);
@@ -78,5 +87,6 @@ public class CategoriaResource {
 
 	}
 	
+	//ATUALIZAR UM CAMPO DA CATEGORIA
 
 }
