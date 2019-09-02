@@ -47,7 +47,7 @@ public class SismoneyExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler({ EmptyResultDataAccessException.class })
 	public ResponseEntity<Object>handlerEmptyResultDataAccessException(EmptyResultDataAccessException ex, WebRequest request){
 		String mensagemUsuario = messageSource.getMessage("recurso.nao-encontrado", null, LocaleContextHolder.getLocale());
-		String mensagemDesenvolvedor = ex.toString();
+		String mensagemDesenvolvedor = ExceptionUtils.getRootCauseMessage(ex);
 		
 		List<ApiErro> erros = Arrays.asList(new ApiErro(mensagemUsuario, mensagemDesenvolvedor));
 		
