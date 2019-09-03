@@ -23,7 +23,7 @@ public class LancamentoService {
 	@Autowired
 	private PessoaRepository pessoaRepository;
 	
-	//SERVIÇO DO MÉTODO PUT
+	//SERVIÇO DO MÉTODO ATUALIZAR
 	public Lancamento atualizar(Long codigo, Lancamento lancamento) {
 		Lancamento lancamentoSalvo = lancamentoRepository.findOne(codigo);
 		
@@ -35,8 +35,10 @@ public class LancamentoService {
 		
 		return lancamentoRepository.save(lancamentoSalvo);
 	}
+	
+	
 
-	//SERVIÇO DO MÉTODO POST
+	//SERVIÇO DO MÉTODO SALVAR
 	public Lancamento salvar(Lancamento lancamento) {
 		Pessoa pessoa = pessoaRepository.findOne(lancamento.getPessoa().getCodigo());
 		

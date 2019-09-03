@@ -23,6 +23,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.lithiumdigital.algamoney.api.erro.ApiErro;
+import com.lithiumdigital.algamoney.api.service.exception.PessoaInexistenteOuInativaException;
 
 @ControllerAdvice
 public class SismoneyExceptionHandler extends ResponseEntityExceptionHandler {
@@ -37,35 +38,68 @@ public class SismoneyExceptionHandler extends ResponseEntityExceptionHandler {
 
 		String mensagemUsuario = messageSource.getMessage("mensagem.invalida", null, LocaleContextHolder.getLocale());
 		String mensagemDesenvolvedor = ex.getCause() != null ? ex.getCause().toString() : ex.toString();
-		
+
 		List<ApiErro> erros = Arrays.asList(new ApiErro(mensagemUsuario, mensagemDesenvolvedor));
-		
+
 		return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
 	}
-	
-	//RECURSO NÃO ENCONTRADO
+
+	// RECURSO NÃO ENCONTRADO
 	@ExceptionHandler({ EmptyResultDataAccessException.class })
-	public ResponseEntity<Object>handlerEmptyResultDataAccessException(EmptyResultDataAccessException ex, WebRequest request){
-		String mensagemUsuario = messageSource.getMessage("recurso.nao-encontrado", null, LocaleContextHolder.getLocale());
+	public ResponseEntity<Object> handlerEmptyResultDataAccessException(EmptyResultDataAccessException ex,
+			WebRequest request) {
+		String mensagemUsuario = messageSource.getMessage("recurso.nao-encontrado", null,
+				LocaleContextHolder.getLocale());
 		String mensagemDesenvolvedor = ExceptionUtils.getRootCauseMessage(ex);
-		
+
 		List<ApiErro> erros = Arrays.asList(new ApiErro(mensagemUsuario, mensagemDesenvolvedor));
-		
+
 		return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
-		
+
+	}
+
+	// PESSOA INEXISTENTE OU INATIVA
+	@ExceptionHandler({ PessoaInexistenteOuInativaException.class })
+	public ResponseEntity<Object> handlerPessoaInexistenteOuInativaException(PessoaInexistenteOuInativaException ex,
+			WebRequest request) {
+		String mensagemUsuario = messageSource.getMessage("pessoa.inexistente-ou-inativa", null,
+				LocaleContextHolder.getLocale());
+		String mensagemDesenvolvedor = ex.toString();
+
+		List<ApiErro> erros = Arrays.asList(new ApiErro(mensagemUsuario, mensagemDesenvolvedor));
+
+		return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+
 	}
 	
-	//OPERAÇÃO NÃO PERMITIDA
-		@ExceptionHandler({ DataIntegrityViolationException.class })
-		public ResponseEntity<Object>handlerDataIntegrityViolationException(DataIntegrityViolationException ex, WebRequest request){
-			String mensagemUsuario = messageSource.getMessage("recurso.operacao-nao-permitida", null, LocaleContextHolder.getLocale());
-			String mensagemDesenvolvedor = ExceptionUtils.getRootCauseMessage(ex);
-			
-			List<ApiErro> erros = Arrays.asList(new ApiErro(mensagemUsuario, mensagemDesenvolvedor));
-			
-			return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
-			
-		}
+	//NULLPOINT EXCEPTION
+//	@ExceptionHandler({ NullPointerException.class })
+//	public ResponseEntity<Object> handlerNullPointException(NullPointerException ex,
+//			WebRequest request) {
+//		String mensagemUsuario = messageSource.getMessage("campo.ativo-null", null,
+//				LocaleContextHolder.getLocale());
+//		String mensagemDesenvolvedor = ex.toString();
+//
+//		List<ApiErro> erros = Arrays.asList(new ApiErro(mensagemUsuario, mensagemDesenvolvedor));
+//
+//		return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+//
+//	}
+	
+
+	// OPERAÇÃO NÃO PERMITIDA
+	@ExceptionHandler({ DataIntegrityViolationException.class })
+	public ResponseEntity<Object> handlerDataIntegrityViolationException(DataIntegrityViolationException ex,
+			WebRequest request) {
+		String mensagemUsuario = messageSource.getMessage("recurso.operacao-nao-permitida", null,
+				LocaleContextHolder.getLocale());
+		String mensagemDesenvolvedor = ExceptionUtils.getRootCauseMessage(ex);
+
+		List<ApiErro> erros = Arrays.asList(new ApiErro(mensagemUsuario, mensagemDesenvolvedor));
+
+		return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+
+	}
 
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
@@ -75,11 +109,11 @@ public class SismoneyExceptionHandler extends ResponseEntityExceptionHandler {
 		return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
 	}
 
-	//LISTA DE ERROS NOS CAMPOS DE CADASTRO
+	// LISTA DE ERROS NOS CAMPOS DE CADASTRO
 	private List<ApiErro> criarListaDeErros(BindingResult bindingResult) {
 		List<ApiErro> erros = new ArrayList<>();
-		
-		for(FieldError fieldError : bindingResult.getFieldErrors()) {
+
+		for (FieldError fieldError : bindingResult.getFieldErrors()) {
 			String mensagemUsuario = messageSource.getMessage(fieldError, LocaleContextHolder.getLocale());
 			String mensagemDesenvolvedor = fieldError.toString();
 			erros.add(new ApiErro(mensagemUsuario, mensagemDesenvolvedor));
