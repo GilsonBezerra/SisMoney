@@ -6,14 +6,24 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.lithiumdigital.algamoney.api.model.Lancamento;
+import com.lithiumdigital.algamoney.api.model.Pessoa;
 import com.lithiumdigital.algamoney.api.repository.LancamentoRepository;
+import com.lithiumdigital.algamoney.api.repository.PessoaRepository;
+import com.lithiumdigital.algamoney.api.service.exception.PessoaInexistenteOuInativaException;
 
 @Service
 public class LancamentoService {
 	
 	@Autowired
-	LancamentoRepository lancamentoRepository;
+	private LancamentoRepository lancamentoRepository;
 	
+	@Autowired
+	private PessoaService pessoaService;
+	
+	@Autowired
+	private PessoaRepository pessoaRepository;
+	
+	//SERVIÇO DO MÉTODO PUT
 	public Lancamento atualizar(Long codigo, Lancamento lancamento) {
 		Lancamento lancamentoSalvo = lancamentoRepository.findOne(codigo);
 		
@@ -25,5 +35,18 @@ public class LancamentoService {
 		
 		return lancamentoRepository.save(lancamentoSalvo);
 	}
+
+	//SERVIÇO DO MÉTODO POST
+	public Lancamento salvar(Lancamento lancamento) {
+		Pessoa pessoa = pessoaRepository.findOne(lancamento.getPessoa().getCodigo());
+		
+		if(pessoa == null || pessoa.isInativo()) {
+			throw new PessoaInexistenteOuInativaException();
+		}
+		
+		return lancamentoRepository.save(lancamento);
+	}
+	
+	
 
 }

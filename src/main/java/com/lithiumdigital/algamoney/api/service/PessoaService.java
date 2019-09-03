@@ -27,4 +27,13 @@ public class PessoaService {
 		return pessoaRepository.save(pessoaSalva);
 	}
 
+	//MÉTODO BUSCAR PESSOA PELO CÓDIGO
+	public Pessoa buscarPessoaPeloCodigo(Long codigo) {
+		Pessoa pessoaSalva = pessoaRepository.findOne(codigo);
+		
+		
+		
+		return pessoaSalva;
+	}
+
 }

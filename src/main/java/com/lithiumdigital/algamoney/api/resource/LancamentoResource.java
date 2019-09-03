@@ -57,7 +57,7 @@ public class LancamentoResource {
 	@PostMapping
 	public ResponseEntity<Lancamento> salvarNovoLancamento(@Valid @RequestBody Lancamento lancamento,
 			HttpServletResponse response) {
-		Lancamento lancamentoSalvo = lancamentoRepository.save(lancamento);
+		Lancamento lancamentoSalvo = lancamentoService.salvar(lancamento);
 
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{codigo}")
 				.buildAndExpand(lancamentoSalvo.getCodigo()).toUri();

@@ -42,9 +42,9 @@ public class PessoaResource {
 
 	@GetMapping("/{codigo}")
 	public ResponseEntity<Pessoa> buscarPessoaPeloCodigo(@PathVariable Long codigo) {
-		Pessoa pessoa = pessoaRepository.findOne(codigo);
+		Pessoa pessoaSalva = pessoaService.buscarPessoaPeloCodigo(codigo);
 
-		return pessoa != null ? ResponseEntity.ok(pessoa) : ResponseEntity.notFound().build();
+		return pessoaSalva != null ? ResponseEntity.ok(pessoaSalva) : ResponseEntity.notFound().build();
 	}
 
 	@PostMapping
