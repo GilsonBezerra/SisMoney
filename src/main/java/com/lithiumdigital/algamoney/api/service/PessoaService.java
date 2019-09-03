@@ -38,7 +38,7 @@ public class PessoaService {
 		return pessoaSalva;
 	}
 
-	// MÉTODO ATUALIZAR ATIVO
+	// MÉTODO ATUALIZAR ATIVO  
 	public void atualizarAtivo(Long codigo, Boolean ativo) {
 
 		Pessoa pessoaSalva = buscarPessoaPeloCodigo(codigo);
