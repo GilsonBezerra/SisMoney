@@ -1,12 +1,13 @@
 package com.lithiumdigital.algamoney.api.resource;
 
 import java.net.URI;
-import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lithiumdigital.algamoney.api.model.Lancamento;
 import com.lithiumdigital.algamoney.api.repository.LancamentoRepository;
+import com.lithiumdigital.algamoney.api.repository.filter.LancamentoFilter;
 import com.lithiumdigital.algamoney.api.service.LancamentoService;
 
 @RestController
@@ -39,9 +41,9 @@ public class LancamentoResource {
 
 	// LISTAR TODAS OS LANÇAMENTOS
 	@GetMapping
-	public List<Lancamento> listar() {
+	public Page<Lancamento> pesquisar(LancamentoFilter lancamentoFilter, Pageable pageable) {
 
-		return lancamentoRepository.findAll();
+		return lancamentoRepository.filtrar(lancamentoFilter, pageable);
 
 	}
 
