@@ -3,6 +3,8 @@ package com.lithiumdigital.algamoney.api.repository.filter;
 import java.time.LocalDate;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Component;
+
 
 public class LancamentoFilter {
 

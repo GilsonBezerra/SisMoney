@@ -30,8 +30,6 @@ public class PessoaResource {
 
 	@Autowired
 	private PessoaRepository pessoaRepository;
-	
-	@Autowired
 	private PessoaService pessoaService;
 
 	@GetMapping
@@ -67,7 +65,7 @@ public class PessoaResource {
 	public void remover(@PathVariable Long codigo) {
 
 		pessoaRepository.delete(codigo);
-		
+
 	}
 
 	@PutMapping("/{codigo}")
@@ -76,12 +74,11 @@ public class PessoaResource {
 		return ResponseEntity.ok(pessoaSalva);
 
 	}
-	
+
 	@PutMapping("/{codigo}/ativo")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void atualizarAtivo(@PathVariable Long codigo, @Valid @RequestBody Boolean ativo) {
 		pessoaService.atualizarAtivo(codigo, ativo);
-		
 
 	}
 

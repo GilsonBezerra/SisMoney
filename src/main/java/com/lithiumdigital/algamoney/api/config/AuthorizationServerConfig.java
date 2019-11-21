@@ -14,7 +14,6 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 @Configuration
 @EnableAuthorizationServer
-
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 	
 	@Autowired
@@ -26,8 +25,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		.withClient("angular")
 		.secret("angular")
 		.scopes("read", "write")
-		.authorizedGrantTypes("password")
-		.accessTokenValiditySeconds(30);
+		.authorizedGrantTypes("password", "refresh_token")
+		.accessTokenValiditySeconds(30)
+		.refreshTokenValiditySeconds(3600 * 24);
 	}
 	
 	@Override
