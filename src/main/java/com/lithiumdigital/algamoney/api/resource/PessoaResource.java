@@ -1,4 +1,4 @@
-package com.lithiumdigital.algamoney.api.resource;
+  package com.lithiumdigital.algamoney.api.resource;
 
 import java.net.URI;
 import java.util.List;

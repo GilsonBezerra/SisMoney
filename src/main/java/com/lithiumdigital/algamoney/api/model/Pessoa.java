@@ -10,6 +10,8 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -22,6 +24,7 @@ public class Pessoa {
 	
 	@NotNull
 	@Size(min = 3, max = 50)
+	@NotBlank( message = "field.not.blank")
 	private String nome;
 	
 	@Embedded
