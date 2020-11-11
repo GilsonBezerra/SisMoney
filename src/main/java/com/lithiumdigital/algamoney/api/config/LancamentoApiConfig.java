@@ -34,7 +34,5 @@ public class LancamentoApiConfig {
 		public void setEnableHttps(boolean enableHttps) {
 			this.enableHttps = enableHttps;
 		}
-
 	}
-
 }

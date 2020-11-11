@@ -57,6 +57,8 @@ public class CategoriaResource {
 		response.setHeader("Location", uri.toASCIIString());
 
 		return ResponseEntity.created(uri).body(categoria);
+		
+		RestTemplate rest = new RestTemplate();
 
 	}
 
